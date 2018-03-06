@@ -1,10 +1,12 @@
 {
   "name": "rm-seatingtool",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Module for creating a map with seats and or tables with seats to use in frontend event homepage.",
-  "main": "index.js",
+  "main": "dist/rm-seatingtool.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "./node_modules/.bin/webpack --config webpack.config.js --env=watch",
+    "build": "./node_modules/.bin/webpack --config webpack.config.js --env=build"
   },
   "repository": {
     "type": "git",
@@ -23,5 +25,27 @@
   "bugs": {
     "url": "https://github.com/Roman75/rm-seatingtool/issues"
   },
-  "homepage": "https://github.com/Roman75/rm-seatingtool#readme"
+  "homepage": "https://github.com/Roman75/rm-seatingtool#readme",
+  "dependencies": {
+    "fabric": "^2.1.0",
+    "jquery": "^3.3.1",
+    "path": "^0.12.7",
+    "uid": "0.0.2"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "clean-webpack-plugin": "^0.1.18",
+    "copy-webpack-plugin": "^4.5.0",
+    "css-loader": "^0.28.10",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.0.4",
+    "optimize-css-assets-webpack-plugin": "^4.0.0",
+    "sass-loader": "^6.0.7",
+    "uglifyjs-webpack-plugin": "^1.2.2",
+    "webpack": "^4.1.0",
+    "webpack-cli": "^2.0.10",
+    "webpack-shell-plugin": "^0.5.0"
+  }
 }
