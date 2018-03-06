@@ -1,0 +1,27 @@
+{
+  "name": "rm-seatingtool",
+  "version": "0.0.1",
+  "description": "Module for creating a map with seats and or tables with seats to use in frontend event homepage.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Roman75/rm-seatingtool.git"
+  },
+  "keywords": [
+    "seatingtool",
+    "seats",
+    "events",
+    "frontend",
+    "tables",
+    "reservation"
+  ],
+  "author": "Roman Marlovits",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Roman75/rm-seatingtool/issues"
+  },
+  "homepage": "https://github.com/Roman75/rm-seatingtool#readme"
+}
