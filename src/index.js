@@ -42,16 +42,18 @@ class rmSeatingtool {
 		this.canvas.setWidth(this.$container.width());
 		this.canvas.setHeight(this.$container.height());
 	}
+
+	/**
+	 * sets the edit mode if true the menu is available and elements (seats/tables with seats) can be attached, moved, deleted, ...
+	 * @param flag boolean
+	 */
+	setEditMode(flag) {
+		this._debug ? console.warn('setEditMode', flag) : null;
+
+	}
 }
 
-/**
- * only for dev => usage example
- */
-$(function () {
-	const demo1 = new rmSeatingtool($('#seatingtool1'));
-	demo1.render();
+if (window !== 'undefined')
+	window.rmSeatingtool = rmSeatingtool;
 
-	//const demo2 = new rmSeatingtool($('#seatingtool2'));
-	//demo2.render();
-});
 
