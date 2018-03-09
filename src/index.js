@@ -5,6 +5,7 @@ require('webpack-jquery-ui/css');
 import uid from 'uid';
 import fabric from './fabric-pached';
 import Menu from './modules/menu';
+import DialogTable from './modules/dialog_table';
 
 
 /**
@@ -43,6 +44,10 @@ class rmSeatingtool {
 			this.canvas = new fabric.Canvas(this.id);
 			this.$canvas_container = this.$container.find('.canvas-container');
 
+			$(window).resize(() => {
+				this.setSizes();
+			});
+
 			var json = JSON.stringify(this.canvas);
 			console.log(json);
 
@@ -72,6 +77,9 @@ class rmSeatingtool {
 		if (flag) {
 			if (!this.menu) {
 				this.menu = new Menu({'$container': this.$container});
+				this.menu.events.on('create_table', () => {
+					let dialog_table = new DialogTable();
+				});
 				this.$canvas_container.css({'top': this.menu.$container.height() + 'px'});
 				this.canvas.setHeight(this.$container.height() - this.menu.$container.height());
 			}

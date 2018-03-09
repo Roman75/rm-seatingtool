@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Events from './events';
 
 export default class Menu {
 	constructor(config) {
@@ -10,6 +11,21 @@ export default class Menu {
 		$('body').click(() => {
 			this._showMenu();
 		});
+
+		this.events = new Events();
+
+		this._structure = {
+			'settings': {
+				'button': {
+					'label': 'settings'
+				},
+				'items': [
+					{'label': 'create seat ..', 'event': 'create_seat'},
+					{'label': 'create table ..', 'event': 'create_table'},
+					{'label': 'create floor ..', 'event': 'create_floor'}
+				]
+			}
+		};
 
 		this._menus = {};
 		this._menusOpen = false;
@@ -24,37 +40,36 @@ export default class Menu {
 		this.config.$container.append(this.$container);
 
 		this._renderMenu();
-		this._renderMenuSettings();
 		this._showMenu();
 	}
 
 	_renderMenu() {
 		this.$menu = $('<div></div>');
 		this.$container.append(this.$menu);
-	}
 
-	_renderMenuSettings() {
-		let $menuSetttingsButton = $('<button id="menu">settings</button>');
-		this.$menu.append($menuSetttingsButton);
+		_.each(this._structure, (main_item, main_index) => {
+			main_item.button = $('<button id="menu">settings</button>');
+			main_item.button.button();
+			main_item.button.click((event) => {
+				event.stopPropagation();
+				(this._menusOpen != main_index) ? this._showMenu(main_index) : this._showMenu();
+			});
+			this.$menu.append(main_item.button);
 
-		$menuSetttingsButton.button();
-		$menuSetttingsButton.click((event) => {
-			event.stopPropagation();
-			(this._menusOpen != 'settings') ? this._showMenu('settings') : this._showMenu();
+			this._menus[main_index] = $('<ul id="menuSettings"></ul>');
+			_.each(main_item.items, (item, index) => {
+				item.menu = $('<li><div>' + item.label + '</div></li>').on('click', () => {
+					this.events.emit(item.event);
+				});
+				this._menus[main_index].append(item.menu);
+			});
+			this.$menu.append(this._menus[main_index]);
+			this._menus[main_index].menu();
 		});
-
-		//this._menus.settings = $('<ul id="menu" style="width:120px"> <li class="ui-state-disabled"><div>Toys (n/a)</div></li> <li><div>Books</div></li> <li><div>Clothing</div></li> <li><div>Electronics</div> <ul> <li class="ui-state-disabled"><div>Home Entertainment</div></li> <li><div>Car Hifi</div></li> <li><div>Utilities</div></li> </ul> </li> <li><div>Movies</div></li> <li><div>Music</div> <ul> <li><div>Rock</div> <ul> <li><div>Alternative</div></li> <li><div>Classic</div></li> </ul> </li> <li><div>Jazz</div> <ul> <li><div>Freejazz</div></li> <li><div>Big Band</div></li> <li><div>Modern</div></li> </ul> </li> <li><div>Pop</div></li> </ul> </li> <li class="ui-state-disabled"><div>Specials (n/a)</div></li> </ul>').menu();
-		this._menus.settings = $('<ul id="menuSettings"></ul>');
-		const refresh = $('<li><div>refresh</div></li>');
-		this._menus.settings.append(refresh);
-		const addTable = $('<li><div>add table</div></li>');
-		this._menus.settings.append(addTable);
-
-		this._menus.settings.menu();
-		this.$menu.append(this._menus.settings);
 	}
 
 	_showMenu(id = false) {
+		console.log(id);
 		_.each(this._menus, (item) => {
 			item.hide();
 		});

@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/Roman75/rm-seatingtool#readme",
   "dependencies": {
+    "eventemitter2": "^5.0.1",
     "fabric": "^2.1.0",
     "lodash": "^4.17.5",
     "path": "^0.12.7",
