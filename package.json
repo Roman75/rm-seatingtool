@@ -28,9 +28,10 @@
   "homepage": "https://github.com/Roman75/rm-seatingtool#readme",
   "dependencies": {
     "fabric": "^2.1.0",
-    "jquery": "^3.3.1",
+    "lodash": "^4.17.5",
     "path": "^0.12.7",
-    "uid": "0.0.2"
+    "uid": "0.0.2",
+    "webpack-jquery-ui": "^1.0.0"
   },
   "devDependencies": {
     "babel-loader": "^7.1.4",
@@ -44,8 +45,10 @@
     "optimize-css-assets-webpack-plugin": "^4.0.0",
     "sass-loader": "^6.0.7",
     "uglifyjs-webpack-plugin": "^1.2.2",
-    "webpack": "^4.1.0",
-    "webpack-cli": "^2.0.10",
-    "webpack-shell-plugin": "^0.5.0"
+    "webpack": "^3.11.0",
+    "webpack-node-externals": "^1.6.0",
+    "webpack-shell-plugin": "^0.5.0",
+    "webpack-ssh-deploy-plugin": "^0.2.0",
+    "webpack-version-file": "^0.1.3"
   }
 }

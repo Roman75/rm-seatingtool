@@ -1,6 +1,4 @@
-import fabric from 'fabric';
-
-console.log(fabric);
+var fabric = require('fabric');
 
 fabric.Canvas.prototype.getPointer = function (e, ignoreZoom, upperCanvasEl) {
 	if (!upperCanvasEl) {
@@ -47,61 +45,63 @@ fabric.Canvas.prototype.getPointer = function (e, ignoreZoom, upperCanvasEl) {
 	};
 };
 
+/*
 fabric.Canvas.prototype.__onMouseDown = function (e) {
-	var isLeftClick = 'which' in e ? e.which === 1 : e.button === 0;
-	var isRightClick = 'which' in e ? e.which === 3 : e.button === 2;
-	if (!isLeftClick && !isRightClick && !fabric.isTouchSupported) {
-		return;
+var isLeftClick = 'which' in e ? e.which === 1 : e.button === 0;
+var isRightClick = 'which' in e ? e.which === 3 : e.button === 2;
+if (!isLeftClick && !isRightClick && !fabric.isTouchSupported) {
+	return;
+}
+
+if (this.isDrawingMode) {
+	this._onMouseDownInDrawingMode(e);
+	return;
+}
+
+// ignore if some object is being transformed at this moment
+if (this._currentTransform) {
+	return;
+}
+
+var target = this.findTarget(e),
+	 pointer = this.getPointer(e, true);
+
+// save pointer for check in __onMouseUp event
+this._previousPointer = pointer;
+
+var shouldRender = this._shouldRender(target, pointer),
+	 shouldGroup = this._shouldGroup(e, target);
+
+if (this._shouldClearSelection(e, target) && this._clearSelection) {
+	this._clearSelection(e, target, pointer);
+}
+else if (shouldGroup) {
+	this._handleGrouping(e, target);
+	target = this.getActiveGroup();
+}
+
+if (target) {
+	if (target.selectable && (target.__corner || !shouldGroup)) {
+		this._beforeTransform(e, target);
+		this._setupCurrentTransform(e, target);
 	}
 
-	if (this.isDrawingMode) {
-		this._onMouseDownInDrawingMode(e);
-		return;
+	if (target !== this.getActiveGroup() && target !== this.getActiveObject()) {
+		this.deactivateAll();
+		target.selectable && this.setActiveObject(target, e);
 	}
+}
+// we must renderAll so that active image is placed on the top canvas
+shouldRender && this.renderAll();
 
-	// ignore if some object is being transformed at this moment
-	if (this._currentTransform) {
-		return;
-	}
-
-	var target = this.findTarget(e),
-		 pointer = this.getPointer(e, true);
-
-	// save pointer for check in __onMouseUp event
-	this._previousPointer = pointer;
-
-	var shouldRender = this._shouldRender(target, pointer),
-		 shouldGroup = this._shouldGroup(e, target);
-
-	if (this._shouldClearSelection(e, target)) {
-		this._clearSelection(e, target, pointer);
-	}
-	else if (shouldGroup) {
-		this._handleGrouping(e, target);
-		target = this.getActiveGroup();
-	}
-
-	if (target) {
-		if (target.selectable && (target.__corner || !shouldGroup)) {
-			this._beforeTransform(e, target);
-			this._setupCurrentTransform(e, target);
-		}
-
-		if (target !== this.getActiveGroup() && target !== this.getActiveObject()) {
-			this.deactivateAll();
-			target.selectable && this.setActiveObject(target, e);
-		}
-	}
-	// we must renderAll so that active image is placed on the top canvas
-	shouldRender && this.renderAll();
-
-	if (isRightClick) {
-		this.fire('mouse:right', {target: target, e: e});
-		target && target.fire('mouseright', {e: e});
-	} else {
-		this.fire('mouse:down', {target: target, e: e});
-		target && target.fire('mousedown', {e: e});
-	}
+if (isRightClick) {
+	this.fire('mouse:right', {target: target, e: e});
+	target && target.fire('mouseright', {e: e});
+} else {
+	this.fire('mouse:down', {target: target, e: e});
+	target && target.fire('mousedown', {e: e});
+}
 };
+*/
 
-module.export = fabric;
+module.exports = fabric;
